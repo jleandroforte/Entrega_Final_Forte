@@ -1,0 +1,30 @@
+
+{% extends "AppBlog/base.html" %}
+
+{% block content %}
+
+<form method="post">
+
+    <p> 
+    Complete los datos en el formulario debajo para registrarse en el sitio
+    
+    
+      <p/> 
+
+
+  {% csrf_token %}
+
+
+<pre> 
+ Nombre:            {{form.first_name}}    <br>
+ Apellido:          {{form.last_name}}     <br>
+ Nombre de Usuario: {{form.username}}  <br>
+ Email:             {{form.email}} <br>
+ Contraseña:        {{form.password1}}  <br>
+ Repetir Contraseña:{{form.password2}}  <br>
+
+
+
+  <input type="submit" value="Finalizar registro" />
+</form>
+{% endblock content %}

@@ -1,0 +1,22 @@
+
+{% extends "AppBlog/base.html" %}
+
+{% block contenido %}
+<section>
+  <div>
+    <h1>Lista de articulos</h1>
+    
+{% for articulo in articulos %}
+<p>{{ articulo.titulo}}
+   {{ articulo.subtitulo }}</p>
+
+
+{% empty %}
+<p>No hay articulos disponibles todavía.</p>
+{% endfor %}
+
+    
+    
+  </div>
+</section>
+{% endblock contenido %}

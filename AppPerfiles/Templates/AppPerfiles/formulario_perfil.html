@@ -1,0 +1,14 @@
+
+{% extends "AppBlog/base.html" %}
+
+{% block content %}
+<p> Su nombre de usuario es <b>{{ object.username }}</b></p>
+
+<h3>Editar campos de usuario:</h3>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Guardar"/>
+</form>
+{% endblock content %}
