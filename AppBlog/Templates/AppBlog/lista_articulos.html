@@ -14,10 +14,10 @@
 
   
     
-{% for articulo in articulos %}
-<p>{{ articulo.titulo}}
-   {{ articulo.subtitulo }}</p>
+{% for articulo in articulos %} 
 
+<p><a href="{% url 'Articulos' %}">{{ articulo.titulo}} </a> <br> 
+   {{ articulo.subtitulo }}</p>
 
 {% empty %}
 <p>No hay articulos disponibles todavía.</p>

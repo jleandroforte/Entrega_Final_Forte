@@ -81,3 +81,22 @@ class ArticuloListView(ListView):
     model = Articulo
     template_name = 'AppBlog/lista_articulos.html'
     context_object_name = 'articulos'
+    
+    
+class ArticuloDetailView(DetailView):
+    model = Articulo
+    template_name = 'AppBlog/detalle_articulo.html'
+    context_object_name = 'articulos'
+
+    success_url = reverse_lazy('detalle_articulo')
+
+
+class ArticuloUpdateView(LoginRequiredMixin, UpdateView):
+    model = Articulo
+    fields = ('titulo', 'subtitulo', 'cuerpo')
+    success_url = reverse_lazy('articulos')
+
+
+class ArticuloDeleteView(LoginRequiredMixin, DeleteView):
+    model = Articulo
+    success_url = reverse_lazy('articulos')
