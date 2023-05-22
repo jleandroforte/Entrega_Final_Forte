@@ -5,7 +5,6 @@ from django.urls import path
 from AppPerfiles.views import *
 
 
-
 urlpatterns = [
   
     path('registro/', registro, name="registro"),

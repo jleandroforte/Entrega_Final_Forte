@@ -77,7 +77,7 @@ def buscar_articulo(request):
         return http_response
 
     
-class ArticuloListView(LoginRequiredMixin, ListView):
+class ArticuloListView(ListView):
     model = Articulo
     template_name = 'AppBlog/lista_articulos.html'
     context_object_name = 'articulos'

@@ -1,10 +1,18 @@
 
 {% extends "AppBlog/base.html" %}
 
-{% block contenido %}
+{% load static %}
+
+
+{% block content %}
+
 <section>
   <div>
     <h1>Lista de articulos</h1>
+
+<a href="{% url 'Articulos'  %}"></a>
+
+  
     
 {% for articulo in articulos %}
 <p>{{ articulo.titulo}}
@@ -19,4 +27,5 @@
     
   </div>
 </section>
-{% endblock contenido %}
+
+{% endblock %}
