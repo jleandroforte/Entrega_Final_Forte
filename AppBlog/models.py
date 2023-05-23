@@ -1,12 +1,14 @@
 from django.db import models
 from datetime import *
+from ckeditor.fields import RichTextField
+
 
 # Create your models here.
 
 class Articulo(models.Model): 
     titulo=models.CharField(max_length=999) 
     subtitulo=models.CharField(max_length=999)
-    cuerpo=models.TextField() 
+    cuerpo=RichTextField() 
     fecha=models.DateField(null=False, blank=False, auto_now_add=True)
     autor=models.CharField(max_length=255)
 

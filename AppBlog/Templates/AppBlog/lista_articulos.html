@@ -1,6 +1,5 @@
 
 {% extends "AppBlog/base.html" %}
-
 {% load static %}
 
 
@@ -12,21 +11,39 @@
 
 <a href="{% url 'Articulos'  %}"></a>
 
-  
-    
+<table>
+<thead>
+<tr>
+  <th>ID</th>
+  <th>TITULO</th>
+  <th>CUERPO</th>
+  <th>DETALLE</th>
+</tr>
+</thead>
+
+
+
 {% for articulo in object_list %} 
 
-<p><a href="{% url 'detalle_articulo' %}">{{ articulo.titulo}} </a> <br> 
+<tr>
+
+  <th>{{articulo.id}}</th>
+  <th>{{articulo.titulo}}</th>
+  <th>{{articulo.cuerpo}}</th>
+  <th><a href="{% url 'detalle_articulo' articulo.id %}">{{ articulo.id}} </a></th>
+
+</tr>
+
     
-   {{ articulo.subtitulo }}</p>
 
 {% empty %}
 <p>No hay articulos disponibles todavía.</p>
+
 {% endfor %}
 
-    
+</table>
     
   </div>
 </section>
 
-{% endblock %}
+{% endblock %}
