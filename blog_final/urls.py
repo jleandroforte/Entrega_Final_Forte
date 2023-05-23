@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('AppBlog/',include('AppBlog.urls')),
     path('AppPerfiles/',include('AppPerfiles.urls')),
-    #path(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 
 
 

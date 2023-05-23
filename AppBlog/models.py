@@ -8,7 +8,7 @@ from ckeditor.fields import RichTextField
 class Articulo(models.Model): 
     titulo=models.CharField(max_length=999) 
     subtitulo=models.CharField(max_length=999)
-    cuerpo=RichTextField() 
+    cuerpo=models.TextField() 
     fecha=models.DateField(null=False, blank=False, auto_now_add=True)
     autor=models.CharField(max_length=255)
 
