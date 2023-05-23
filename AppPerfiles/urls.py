@@ -12,7 +12,7 @@ urlpatterns = [
     path('logout/', CustomLogoutView.as_view(), name="logout"),
     path('editar_perfil/', MiPerfilUpdateView.as_view(), name="editar_perfil"),
     path('editar_avatar/', agregar_avatar, name="editar_avatar"),
-]
     
+]
 
 
