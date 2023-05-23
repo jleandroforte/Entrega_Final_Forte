@@ -86,7 +86,7 @@ class ArticuloListView(ListView):
 class ArticuloDetailView(DetailView):
     model = Articulo
     template_name = 'AppBlog/detalle_articulo.html'
-    context_object_name = 'articulos'
+   # context_object_name = 'articulos'
 
     success_url = reverse_lazy('detalle_articulo')
 

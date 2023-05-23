@@ -14,9 +14,10 @@
 
   
     
-{% for articulo in articulos %} 
+{% for articulo in object_list %} 
 
-<p><a href="{% url 'Articulos' %}">{{ articulo.titulo}} </a> <br> 
+<p><a href="{% url 'detalle_articulo' %}">{{ articulo.titulo}} </a> <br> 
+    
    {{ articulo.subtitulo }}</p>
 
 {% empty %}
