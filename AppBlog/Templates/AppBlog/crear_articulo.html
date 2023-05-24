@@ -14,7 +14,6 @@
         <p>     
         <form action="{% url 'crear_articulo' %}" method="post">
             {% csrf_token %}
-
             {{ formulario.as_p }}
             {{ formulario.errors }}
             
