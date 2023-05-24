@@ -11,35 +11,41 @@
 
 <a href="{% url 'Articulos'  %}"></a>
 
-<table>
-<thead>
+<table class="table table-bordered" > 
+<thead class="table-primary"> 
 <tr>
   <th>ID</th>
   <th>TITULO</th>
   <th>CUERPO</th>
   <th>DETALLE</th>
+  <th>OPCIONES</th>
+
 </tr>
 </thead>
 
-
+<tbody> 
 
 {% for articulo in object_list %} 
 
 <tr>
+  
 
-  <th>{{articulo.id}}</th>
-  <th>{{articulo.titulo}}</th>
-  <th>{{articulo.cuerpo}}</th>
-  <th><a href="{% url 'detalle_articulo' articulo.id %}">{{ articulo.id}} </a></th>
-
+  <td>{{articulo.id}}</td>
+  <td>{{articulo.titulo}}</td>
+  <td>{{articulo.cuerpo}}</td>
+  <td><a href="{% url 'detalle_articulo' articulo.id %}">{{ articulo.id}} </a></td>
+  <td> <a href="{% url 'editar_articulo' articulo.id %}">Editar artículo</a> 
+  <a href="{% url 'borrar_articulo' articulo.id %}"> "Eliminar articulo"
+      <i class="bi bi-trash"></i> </td> 
 </tr>
 
-<a href="{% url 'editar_articulo' articulo.id %}">Editar artículo</a>
+{% comment %} <a href="{% url 'editar_articulo' articulo.id %}">Editar artículo</a>
 </td>
 <td>
 <a href="{% url 'borrar_articulo' articulo.id %}"> "Eliminar articulo"
-    <i class="bi bi-trash"></i>
+    <i class="bi bi-trash"></i> {% endcomment %}
 
+    <tbody> 
 
 {% empty %}
 <p>No hay entradas aún.</p>
