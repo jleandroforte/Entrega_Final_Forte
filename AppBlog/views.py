@@ -94,9 +94,11 @@ class ArticuloDetailView(DetailView):
 class ArticuloUpdateView(LoginRequiredMixin, UpdateView):
     model = Articulo
     fields = ('titulo', 'subtitulo', 'cuerpo')
-    success_url = reverse_lazy('articulos')
+    success_url = reverse_lazy('editar_articulo')
 
 
 class ArticuloDeleteView(LoginRequiredMixin, DeleteView):
     model = Articulo
-    success_url = reverse_lazy('articulos')
+    template_name = 'AppBlog/borrar_articulo.html'
+
+    success_url = reverse_lazy('borrar_articulo')
