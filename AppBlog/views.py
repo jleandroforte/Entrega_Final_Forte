@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 
 
@@ -93,6 +93,7 @@ class ArticuloDetailView(DetailView):
 
 class ArticuloUpdateView(LoginRequiredMixin, UpdateView):
     model = Articulo
+    template_name = 'AppBlog/detalle_articulo.html'
     fields = ('titulo', 'subtitulo', 'cuerpo')
     success_url = reverse_lazy('editar_articulo')
 
@@ -102,3 +103,35 @@ class ArticuloDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'AppBlog/borrar_articulo.html'
 
     success_url = reverse_lazy('borrar_articulo')
+    
+    
+@login_required
+def editar_articulo(request,id):
+    if request.method=="GET": 
+        articulo=get_object_or_404(Articulo,id=id)
+        formulario=Formulario_Articulo(instance=articulo)
+        context={"formulario":formulario}
+        return render (
+            request,
+            "editar_articulo.html" ,
+            context
+            
+        )
+        
+        
+    if request.method=="POST":
+        formulario=Formulario_Articulo(request.POST)
+        
+        if formulario.is_valid(): 
+           data = formulario.cleaned_data
+           titulo=data['titulo']
+           subtitulo=data['subtitulo']
+           cuerpo=data['cuerpo']
+           fecha=data['fecha']
+           autor=request.user
+           articulo=Articulo(titulo=titulo, subtitulo=subtitulo,cuerpo=cuerpo,fecha=fecha,autor=autor)
+           articulo.save()
+
+           
+            
+        url_exitosa=reverse(editar_articulo)
