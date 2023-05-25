@@ -11,7 +11,7 @@
 
 <a href="{% url 'Articulos'  %}"></a>
 
-<table class="table table-bordered" > 
+<table class="table table-bordered table-hover" > 
 <thead class="table-primary"> 
 <tr>
   <th>ID</th>
@@ -29,14 +29,19 @@
 
 <tr>
   
-
   <td>{{articulo.id}}</td>
   <td>{{articulo.titulo}}</td>
   <td>{{articulo.cuerpo}}</td>
   <td><a href="{% url 'detalle_articulo' articulo.id %}">{{ articulo.id}} </a></td>
-  <td> <a href="{% url 'editar_articulo' articulo.id %}">Editar artículo</a> 
-  <a href="{% url 'borrar_articulo' articulo.id %}"> "Eliminar articulo"
-      <i class="bi bi-trash"></i> </td> 
+  {% if articulo.owner == user%}
+  <td> 
+      <a href="{% url 'editar_articulo' articulo.id %}"><button class="btn btn-warning"> Editar </button></a> 
+      <a href="{% url 'borrar_articulo' articulo.id %}"><button class="btn btn-danger"> Eliminar <i class="bi bi-trash"></i></button> 
+  </td>
+    {% else %}
+      <td>Sin Acciones</td>
+    {% endif%}
+
 </tr>
 
 {% comment %} <a href="{% url 'editar_articulo' articulo.id %}">Editar artículo</a>

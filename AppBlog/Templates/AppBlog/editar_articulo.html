@@ -6,12 +6,12 @@
 
 <body>
 
-    <p> Editar artículos  <p/>  
+    <p> Editar artículos  </p>  
 
       
         
         <p>     
-        <form action="{% url 'editar_articulo' %}" method="post">
+        <form action="{% url 'editar_articulo' articulo.id %}" method="POST">
             {% csrf_token %}
 
             {{ formulario.as_p }}
@@ -20,7 +20,7 @@
             <input type="submit" value="Editar artículo" />
         </form>
     
-        <p> 
+        </p> 
    
 </body>
 

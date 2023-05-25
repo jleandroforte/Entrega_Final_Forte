@@ -14,7 +14,4 @@ urlpatterns = [
    path('pages/<int:pk>/', ArticuloDetailView.as_view(), name="detalle_articulo"),
    path('editar_articulo/<int:pk>/', ArticuloUpdateView.as_view(), name='editar_articulo'),
    path('borrar_articulo/<int:pk>/', ArticuloDeleteView.as_view(), name="borrar_articulo"),
-  
-   
-
 ]

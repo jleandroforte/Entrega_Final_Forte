@@ -12,7 +12,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, View
 
 # Create your views here.
 
@@ -31,6 +31,7 @@ def detalle_articulo(request):
 
 @login_required
 def crear_articulo(request):
+    
     if request.method=="POST":
         formulario=Formulario_Articulo(request.POST)
         
@@ -39,9 +40,9 @@ def crear_articulo(request):
            titulo=data['titulo']
            subtitulo=data['subtitulo']
            cuerpo=data['cuerpo']
-           fecha=data['fecha']
            autor=request.user
-           articulo=Articulo(titulo=titulo, subtitulo=subtitulo,cuerpo=cuerpo,fecha=fecha,autor=autor)
+           owner=request.user
+           articulo=Articulo(titulo=titulo, subtitulo=subtitulo,cuerpo=cuerpo,autor=autor,owner=owner)
            articulo.save()
 
            
@@ -52,12 +53,9 @@ def crear_articulo(request):
             formulario=Formulario_Articulo()
             
     http_response=render(
-          request=request,
-          template_name='AppBlog/crear_articulo.html',
-          context={'formulario': formulario}
-            
-            
-        )
+        request=request,
+        template_name='AppBlog/crear_articulo.html',
+        context={'formulario': formulario})
         
     return http_response
 
@@ -91,47 +89,33 @@ class ArticuloDetailView(DetailView):
     success_url = reverse_lazy('detalle_articulo')
 
 
-class ArticuloUpdateView(LoginRequiredMixin, UpdateView):
+class ArticuloUpdateView(LoginRequiredMixin, View):
     model = Articulo
     template_name = 'AppBlog/detalle_articulo.html'
-    fields = ('titulo', 'subtitulo', 'cuerpo')
-    success_url = reverse_lazy('editar_articulo')
+    fields = ['titulo', 'subtitulo', 'cuerpo','autor']
+    fields_exclude = ['fecha']
+    success_url = reverse_lazy('Articulos')
+    
+    def get(self, request, pk):
+        art = get_object_or_404(Articulo, id=pk)
+        form = Formulario_Articulo(instance=art)
+        ctx = {'formulario': form,'articulo':art}
+        return render(request, 'AppBlog/editar_articulo.html', ctx)
+    
+    def post(self, request, pk=None):
+        art = get_object_or_404(Articulo, id=pk)
+        form = Formulario_Articulo(request.POST, instance=art)
+
+        if not form.is_valid():
+            ctx = {'formulario': form}
+            return render(request, self.template_name, ctx)
+
+        form.save()
+        return redirect(self.success_url)
 
 
 class ArticuloDeleteView(LoginRequiredMixin, DeleteView):
     model = Articulo
     template_name = 'AppBlog/borrar_articulo.html'
-
     success_url = reverse_lazy('borrar_articulo')
     
-    
-@login_required
-def editar_articulo(request,id):
-    if request.method=="GET": 
-        articulo=get_object_or_404(Articulo,id=id)
-        formulario=Formulario_Articulo(instance=articulo)
-        context={"formulario":formulario}
-        return render (
-            request,
-            "editar_articulo.html" ,
-            context
-            
-        )
-        
-        
-    if request.method=="POST":
-        formulario=Formulario_Articulo(request.POST)
-        
-        if formulario.is_valid(): 
-           data = formulario.cleaned_data
-           titulo=data['titulo']
-           subtitulo=data['subtitulo']
-           cuerpo=data['cuerpo']
-           fecha=data['fecha']
-           autor=request.user
-           articulo=Articulo(titulo=titulo, subtitulo=subtitulo,cuerpo=cuerpo,fecha=fecha,autor=autor)
-           articulo.save()
-
-           
-            
-        url_exitosa=reverse(editar_articulo)
